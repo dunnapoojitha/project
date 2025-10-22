@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GreenPulse - Home</title>
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial;
+      background: url("airpollution-bg.jpg") no-repeat center center fixed;
+      background-size: cover;
+      padding-top: 90px;
+      padding-bottom: 130px;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 40px;
+      margin-right: 10px;
+    }
+
+    .logo span {
+      font-size: 18px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-buttons button {
+      padding: 8px 14px;
+      background: #00cc88;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .profile-img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #00cc88;
+      cursor: pointer;
+    }
+
+    .main {
+      padding: 30px;
+    }
+
+    .upload-row {
+      display: flex;
+      justify-content: space-around;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .upload-box {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 30%;
+      min-width: 280px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .upload {
+      background-color: #00cc99;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      background-color: rgba(0, 0, 0, 0.85);
+      color: white;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 40px;
+      font-size: 14px;
+    }
+
+    footer div {
+      width: 32%;
+    }
+
+    footer a {
+      color: #00ccff;
+      text-decoration: none;
+    }
+
+    @media screen and (max-width: 900px) {
+      .upload-row {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .upload-box {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Logo">
+      <span><strong>GreenPulse</strong><br><small>Let’s fight air pollution together!</small></span>
+    </div>
+    <div class="nav-buttons">
+      
+      <button onclick="location.href='solutions.html'">solutions</button>
+      <button onclick="location.href='funds.html'">funds</button>
+      <button onclick="location.href='quizzes.html'">quizes</button>
+      <button onclick="location.href='airpollution check.html'">check pollution</button>
+      <button onclick="location.href='moderate.html'">moderate</button>
+      
+    </div>
+    <img src="profile-pic.jpg" alt="Profile" class="profile-img" onclick="window.location.href='profile.html'">
+  </header>
+
+  <!-- Upload Section -->
+  <div class="main">
+    <div class="upload-row">
+
+      <!-- Image Upload -->
+      <div class="upload-box">
+        <h3>📸 Upload Pollution Image</h3>
+        <input type="file" id="pollutionImage" accept="image/*"><br>
+        <input type="text" id="locationImage" placeholder="Live Location">
+        <button class="upload" onclick="uploadImage()">Upload</button>
+      </div>
+
+      <!-- Video Upload -->
+      <div class="upload-box">
+        <h3>🎥 Upload Awareness Video</h3>
+        <input type="file" id="awarenessVideo" accept="video/*"><br>
+        <input type="text" id="locationVideo" placeholder="Live Location">
+        <button class="upload" onclick="uploadVideo()">Upload</button>
+      </div>
+
+      <!-- Plantation Upload -->
+      <div class="upload-box">
+        <h3>🌱 Upload Plantation</h3>
+        <input type="file" id="plantImage" accept="image/*"><br>
+        <input type="number" id="plantCost" placeholder="Plant Cost ₹">
+        <input type="text" id="plantLocation" placeholder="Location">
+        <button class="upload" onclick="uploadPlant()">Upload</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div>
+      <strong>📞 Contact Us</strong><br>
+      +91 98765 43210<br>
+      support@greenpulse.org
+    </div>
+    <div>
+      <strong>🌐 Awareness</strong><br>
+      Learn about clean air and stay safe:<br>
+      <a href="https://cleanairinitiative.org" target="_blank">Clean Air Initiative</a><br>
+      <a href="https://www.unep.org" target="_blank">UNEP Campaign</a>
+    </div>
+    <div>
+      <strong>🌫️ About Air Pollution</strong><br>
+      <a href="https://moef.gov.in" target="_blank">MoEF India</a><br>
+      <a href="https://www.who.int/airpollution" target="_blank">WHO Air Quality</a>
+    </div>
+  </footer>
+
+  <!-- Upload Scripts -->
+  <script>
+    function uploadImage() {
+      const file = document.getElementById("pollutionImage").files[0];
+      const location = document.getElementById("locationImage").value;
+      if (!file || !location) return alert("Upload image and location.");
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        fetch("http://localhost:3000/uploadImage", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ image: reader.result, location, type: "pollution" })
+        }).then(res => res.json()).then(data => alert(data.message));
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function uploadVideo() {
+      const file = document.getElementById("awarenessVideo").files[0];
+      const location = document.getElementById("locationVideo").value;
+      if (!file || !location) return alert("Upload video and location.");
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        fetch("http://localhost:3000/uploadVideo", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ video: reader.result, location, type: "awareness" })
+        }).then(res => res.json()).then(data => alert(data.message));
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function uploadPlant() {
+      const file = document.getElementById("plantImage").files[0];
+      const cost = document.getElementById("plantCost").value;
+      const location = document.getElementById("plantLocation").value;
+      if (!file || !cost || !location) return alert("All fields required.");
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        fetch("http://localhost:3000/uploadPlant", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ image: reader.result, location, cost, type: "plantation" })
+        }).then(res => res.json()).then(data => alert(data.message));
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+
+</body>
+</html>

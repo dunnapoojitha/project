@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Donate Funds</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #eef5f9;
+      margin: 0;
+    }
+
+    .header {
+      background-color: #1c1c1c;
+      padding: 10px;
+      text-align: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      background-color: #1b7e3c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .donation-container {
+      margin-top: 120px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .donation-container h2 {
+      text-align: center;
+      color: #1b7e3c;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background-color: #1b7e3c;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background-color: #155e2e;
+    }
+
+    .footer {
+      background-color: #1c1c1c;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      font-size: 14px;
+      margin-top: 50px;
+    }
+
+    .footer div {
+      width: 32%;
+    }
+
+    .footer a {
+      color: #00bcd4;
+      text-decoration: none;
+      display: block;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <button>home</button>
+    <button>Solutions</button>
+    <button>Check</button>
+    <button>Moderate</button>
+    <button>Quizzes</button>
+    <button>Funds</button>
+  </div>
+
+  <div class="donation-container">
+    <h2>Support Our Green Mission 🌱</h2>
+    <form id="donationForm">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="donorName" required>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="donorEmail" required>
+      </div>
+
+      <div class="form-group">
+        <label>Amount (₹)</label>
+        <input type="number" id="amount" required>
+      </div>
+
+      <div class="form-group">
+        <label>Payment Method</label>
+        <select id="paymentMethod" required>
+          <option value="">Select</option>
+          <option value="Google Pay">Google Pay</option>
+          <option value="PhonePe">PhonePe</option>
+          <option value="Paytm">Paytm</option>
+          <option value="UPI">UPI</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Comments / Suggestions</label>
+        <textarea id="comment" rows="3"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Donate Now</button>
+    </form>
+    <p id="response" style="color: green; text-align: center;"></p>
+  </div>
+
+  <div class="footer">
+    <div>
+      <strong>Contact Us</strong><br>
+      Phone: +91-9876543210<br>
+      Email: info@greenpulse.in
+    </div>
+    <div>
+      <strong>Awareness</strong>
+      <a href="#">Clean Air Initiative</a>
+      <a href="#">Stay Safe Campaign</a>
+    </div>
+    <div>
+      <strong>About Air Pollution</strong>
+      <a href="https://moef.gov.in" target="_blank">MoEF India</a>
+      <a href="https://who.int" target="_blank">WHO Air Quality</a>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('donationForm');
+    const responseText = document.getElementById('response');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const payment = document.getElementById('paymentMethod').value;
+      const imageName = payment.toLowerCase().replace(" ", "") + ".png";
+
+      const paymentText = {
+        "Google Pay": "Send to UPI: 9876543210@okhdfcbank",
+        "PhonePe": "Send to UPI: 9876543210@ybl",
+        "Paytm": "Paytm Number: 9876543210",
+        "UPI": "UPI ID: 9876543210@upi"
+      };
+
+      const data = {
+        name: document.getElementById('donorName').value,
+        email: document.getElementById('donorEmail').value,
+        amount: document.getElementById('amount').value,
+        method: payment,
+        comment: document.getElementById('comment').value
+      };
+
+      const res = await fetch('/donate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        responseText.innerHTML = `
+          ✅ <strong>${result.message}</strong><br><br>
+          💰 Please send ₹${data.amount} using <strong>${data.method}</strong><br>
+          <span style="font-size: 16px; color: blue;">${paymentText[payment]}</span><br><br>
+          <img src="/images/${imageName}" alt="${payment} QR" width="200" style="border: 1px solid #ccc; border-radius: 8px;" />
+        `;
+      } else {
+        responseText.textContent = 'Something went wrong. Please try again.';
+      }
+
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>

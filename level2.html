@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Air Pollution & Plants Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0fff0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .quiz-container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .option {
+      background-color: #e8f5e9;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      background-color: #c8e6c9;
+    }
+
+    .selected {
+      background-color: #a5d6a7;
+      border: 2px solid #388e3c;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1b5e20;
+    }
+
+    .score {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h2 id="question">Loading question...</h2>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Next</button>
+    <div class="score" id="score"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "1. Which plant is known to absorb maximum air pollutants?",
+        options: ["Neem", "Money Plant", "Spider Plant", "Bamboo"],
+        answer: "Spider Plant"
+      },
+      {
+        question: "2. Trees help reduce air pollution by:",
+        options: ["Blocking sunlight", "Releasing carbon monoxide", "Absorbing pollutants", "Causing erosion"],
+        answer: "Absorbing pollutants"
+      },
+      {
+        question: "3. Which gas do plants absorb to help reduce pollution?",
+        options: ["Oxygen", "Nitrogen", "Carbon dioxide", "Helium"],
+        answer: "Carbon dioxide"
+      },
+      {
+        question: "4. Which of these plants purifies indoor air?",
+        options: ["Rose", "Aloe Vera", "Cactus", "Tulip"],
+        answer: "Aloe Vera"
+      },
+      {
+        question: "5. What part of the plant traps dust and smoke?",
+        options: ["Stem", "Roots", "Leaves", "Flowers"],
+        answer: "Leaves"
+      },
+      {
+        question: "6. Which tree is most effective in urban air pollution control?",
+        options: ["Mango", "Peepal", "Banana", "Coconut"],
+        answer: "Peepal"
+      },
+      {
+        question: "7. What benefit do plants provide to cities with air pollution?",
+        options: ["More fog", "Less oxygen", "Cleaner air", "Increased heat"],
+        answer: "Cleaner air"
+      },
+      {
+        question: "8. Which indoor plant removes benzene and formaldehyde?",
+        options: ["Areca Palm", "Jasmine", "Orchid", "Mint"],
+        answer: "Areca Palm"
+      },
+      {
+        question: "9. Which process by plants purifies air?",
+        options: ["Germination", "Transpiration", "Photosynthesis", "Fertilization"],
+        answer: "Photosynthesis"
+      },
+      {
+        question: "10. Which plant is best for controlling air pollution at roadsides?",
+        options: ["Sugarcane", "Ficus", "Wheat", "Tulsi"],
+        answer: "Ficus"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedOption = null;
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      document.getElementById("question").textContent = q.question;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      q.options.forEach(option => {
+        const div = document.createElement("div");
+        div.textContent = option;
+        div.className = "option";
+        div.onclick = () => {
+          selectedOption = option;
+          document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
+          div.classList.add("selected");
+        };
+        optionsDiv.appendChild(div);
+      });
+    }
+
+    function nextQuestion() {
+      if (!selectedOption) {
+        alert("Please select an option!");
+        return;
+      }
+
+      if (selectedOption === quizData[currentQuestion].answer) {
+        score++;
+      }
+
+      currentQuestion++;
+      selectedOption = null;
+
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        document.getElementById("question").textContent = "Quiz Completed!";
+        document.getElementById("options").innerHTML = "";
+        document.querySelector("button").style.display = "none";
+        document.getElementById("score").textContent = `Your Score: ${score} / ${quizData.length}`;
+      }
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>

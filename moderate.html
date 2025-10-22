@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Moderate Air Pollution - GreenPulse</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0fff0;
+    }
+
+    header {
+      background-color: #111;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .nav-buttons a button {
+      background: #27ae60;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 5px;
+      color: white;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .content {
+      padding: 30px;
+      text-align: center;
+    }
+
+    .content h2 {
+      color: #2d7c3d;
+    }
+
+    .content p {
+      font-size: 16px;
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+
+    .city-image {
+      max-width: 700px;
+      width: 100%;
+      margin: 20px auto;
+      display: block;
+      border-radius: 10px;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    footer {
+      background: #111;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      margin-top: 40px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    td {
+      padding: 10px;
+      border: 1px solid white;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="logo.png" alt="Logo" />
+    <span><strong>GreenPulse</strong></span>
+  </div>
+  <div class="nav-buttons">
+    <a href="home.html"><button>Home</button></a>
+    <a href="solutions.html"><button>Solutions</button></a>
+    <a href="check.html"><button>Check</button></a>
+    <a href="moderate.html"><button>Moderate</button></a>
+    <a href="quizzes.html"><button>Quizzes</button></a>
+    <a href="funds.html"><button>Funds</button></a>
+    <a href="profile.html"><button>Profile</button></a>
+  </div>
+</header>
+
+<div class="content">
+  <h2>Understanding Moderate Air Pollution</h2>
+  <p>
+    Moderate air pollution means the air quality is acceptable; however, some pollutants may pose a risk for sensitive individuals like children, the elderly, or those with respiratory conditions. Monitoring AQI and minimizing outdoor exposure can help avoid health risks.
+  </p>
+
+  <img class="city-image" src="images/your-image.jpg" alt="Pollution Image" />
+
+  <h3>Air Quality Index (AQI) Levels</h3>
+  <table>
+    <tr style="background-color: green; color: white;">
+      <td><strong>Green</strong></td>
+      <td><strong>Good</strong></td>
+      <td>0 - 50</td>
+      <td>Air quality is satisfactory, and air pollution poses little or no risk.</td>
+    </tr>
+    <tr style="background-color: yellow; color: black;">
+      <td><strong>Yellow</strong></td>
+      <td><strong>Moderate</strong></td>
+      <td>51 - 100</td>
+      <td>Air quality is acceptable. However, there may be a risk for some people who are unusually sensitive.</td>
+    </tr>
+    <tr style="background-color: orange; color: black;">
+      <td><strong>Orange</strong></td>
+      <td><strong>Unhealthy for Sensitive Groups</strong></td>
+      <td>101 - 150</td>
+      <td>Sensitive groups may experience effects. Public not likely affected.</td>
+    </tr>
+    <tr style="background-color: red; color: white;">
+      <td><strong>Red</strong></td>
+      <td><strong>Unhealthy</strong></td>
+      <td>151 - 200</td>
+      <td>Some of the general public may experience health effects.</td>
+    </tr>
+    <tr style="background-color: purple; color: white;">
+      <td><strong>Purple</strong></td>
+      <td><strong>Very Unhealthy</strong></td>
+      <td>201 - 300</td>
+      <td>Health alert: everyone may experience health effects.</td>
+    </tr>
+    <tr style="background-color: maroon; color: white;">
+      <td><strong>Maroon</strong></td>
+      <td><strong>Hazardous</strong></td>
+      <td>301 and higher</td>
+      <td>Health warning: everyone is more likely to be affected.</td>
+    </tr>
+  </table>
+
+  <h3>Check Air Quality in Indian Cities</h3>
+  <select id="citySelect">
+    <option value="">Select a city</option>
+    <option value="Delhi">Delhi</option>
+    <option value="Mumbai">Mumbai</option>
+    <option value="Hyderabad">Hyderabad</option>
+    <option value="Chennai">Chennai</option>
+    <option value="Kolkata">Kolkata</option>
+    <option value="Bengaluru">Bengaluru</option>
+    <option value="Ahmedabad">Ahmedabad</option>
+    <option value="Pune">Pune</option>
+    <option value="Lucknow">Lucknow</option>
+    <option value="Jaipur">Jaipur</option>
+    <option value="Patna">Patna</option>
+    <option value="Nagpur">Nagpur</option>
+    <option value="Indore">Indore</option>
+    <option value="Bhopal">Bhopal</option>
+    <option value="Raipur">Raipur</option>
+    <option value="Surat">Surat</option>
+    <option value="Kanpur">Kanpur</option>
+    <option value="Varanasi">Varanasi</option>
+    <option value="Amritsar">Amritsar</option>
+    <option value="Coimbatore">Coimbatore</option>
+    <option value="Visakhapatnam">Visakhapatnam</option>
+    <option value="Madurai">Madurai</option>
+    <option value="Vijayawada">Vijayawada</option>
+    <option value="Ludhiana">Ludhiana</option>
+    <option value="Agra">Agra</option>
+    <option value="Meerut">Meerut</option>
+    <option value="Nashik">Nashik</option>
+    <option value="Jodhpur">Jodhpur</option>
+    <option value="Ranchi">Ranchi</option>
+    <option value="Guwahati">Guwahati</option>
+    <option value="Chandigarh">Chandigarh</option>
+    <option value="Mysuru">Mysuru</option>
+    <option value="Trivandrum">Trivandrum</option>
+    <option value="Tirupati">Tirupati</option>
+    <option value="Noida">Noida</option>
+    <option value="Gurugram">Gurugram</option>
+    <option value="Faridabad">Faridabad</option>
+    <option value="Ghaziabad">Ghaziabad</option>
+    <option value="Rajkot">Rajkot</option>
+    <option value="Thane">Thane</option>
+  </select>
+
+  <div id="result"></div>
+</div>
+
+<footer>
+  <div>Contact Us: +91 9876543210</div>
+  <div>&copy; 2025 GreenPulse. All rights reserved.</div>
+</footer>
+
+<script>
+  const cityAQIData = {
+    "Delhi": 280,
+    "Mumbai": 120,
+    "Hyderabad": 95,
+    "Chennai": 60,
+    "Kolkata": 190,
+    "Bengaluru": 75,
+    "Ahmedabad": 150,
+    "Pune": 130,
+    "Lucknow": 220,
+    "Jaipur": 170,
+    "Patna": 240,
+    "Nagpur": 140,
+    "Indore": 135,
+    "Bhopal": 90,
+    "Raipur": 185,
+    "Surat": 145,
+    "Kanpur": 200,
+    "Varanasi": 210,
+    "Amritsar": 165,
+    "Coimbatore": 70,
+    "Visakhapatnam": 100,
+    "Madurai": 55,
+    "Vijayawada": 125,
+    "Ludhiana": 160,
+    "Agra": 195,
+    "Meerut": 170,
+    "Nashik": 110,
+    "Jodhpur": 155,
+    "Ranchi": 150,
+    "Guwahati": 135,
+    "Chandigarh": 90,
+    "Mysuru": 65,
+    "Trivandrum": 45,
+    "Tirupati": 85,
+    "Noida": 210,
+    "Gurugram": 175,
+    "Faridabad": 200,
+    "Ghaziabad": 205,
+    "Rajkot": 140,
+    "Thane": 115
+  };
+
+  const citySelect = document.getElementById("citySelect");
+  const resultDiv = document.getElementById("result");
+
+  citySelect.addEventListener("change", () => {
+    const city = citySelect.value;
+    const aqi = cityAQIData[city];
+
+    let level = "";
+    let color = "";
+
+    if (aqi <= 50) {
+      level = "✅ Good";
+      color = "green";
+    } else if (aqi <= 100) {
+      level = "⚠️ Moderate";
+      color = "orange";
+    } else if (aqi <= 150) {
+      level = "😷 Unhealthy for Sensitive Groups";
+      color = "orange";
+    } else if (aqi <= 200) {
+      level = "❌ Unhealthy";
+      color = "red";
+    } else if (aqi <= 300) {
+      level = "⚠️ Very Unhealthy";
+      color = "purple";
+    } else {
+      level = "☠️ Hazardous";
+      color = "maroon";
+    }
+
+    resultDiv.innerHTML = `Air Quality in <strong>${city}</strong>: AQI <strong>${aqi}</strong> → <span style="color:${color};">${level}</span>`;
+  });
+</script>
+
+</body>
+</html>

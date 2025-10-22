@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pollution & Trees Impact</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* Header */
+    header {
+      background-color: #1c1c1c;
+      color: white;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo-area {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-area h1 {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .logo-area span {
+      font-size: 12px;
+      color: #cccccc;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-buttons button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #218838;
+    }
+
+    .profile {
+      color: white;
+      font-size: 14px;
+    }
+
+    /* Controls */
+    select, input[type="date"] {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    /* Chart Box */
+    #chartsContainer {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1c1c1c;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+
+    footer div {
+      margin: 10px;
+    }
+
+    footer a {
+      color: #5dade2;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-area">
+      <h1>GreenPulse</h1>
+      <span>Let's fight air pollution together!</span>
+    </div>
+
+    <div class="nav-buttons">
+      <button>Solutions</button>
+      <button>Functions</button>
+      <button>Quizzes</button>
+      <button>Check Pollution</button>
+      <button>Moderate</button>
+    </div>
+
+    <div class="profile">Profile</div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <h1 style="text-align:center; font-size:28px; margin-bottom: 20px;">📊 Pollution & Plantation Impact</h1>
+
+    <!-- Select Controls -->
+    <div style="text-align: center;">
+      <select id="areaSelect">
+        <option value="" disabled selected>Select an area</option>
+        <option value="MVP Colony">MVP Colony</option>
+        <option value="Gajuwaka">Gajuwaka</option>
+        <option value="Seethammadhara">Seethammadhara</option>
+        <option value="Dwaraka Nagar">Dwaraka Nagar</option>
+        <option value="Rushikonda">Rushikonda</option>
+        <option value="Akkayyapalem">Akkayyapalem</option>
+        <option value="Siripuram">Siripuram</option>
+        <option value="Jagadamba Junction">Jagadamba Junction</option>
+        <option value="NAD Junction">NAD Junction</option>
+        <option value="Kurmannapalem">Kurmannapalem</option>
+        <option value="Gopalapatnam">Gopalapatnam</option>
+        <option value="PM Palem">PM Palem</option>
+        <option value="Bheemunipatnam">Bheemunipatnam</option>
+        <option value="Anakapalle">Anakapalle</option>
+        <option value="Kancharapalem">Kancharapalem</option>
+        <option value="Kommadi">Kommadi</option>
+        <option value="Pendurthi">Pendurthi</option>
+        <option value="Yendada">Yendada</option>
+        <option value="Sheela Nagar">Sheela Nagar</option>
+        <option value="Malkapuram">Malkapuram</option>
+      </select>
+      <input id="dateInput" type="date" />
+      <select id="viewType">
+        <option value="" disabled selected>Daily / Monthly</option>
+        <option value="daily">Daily</option>
+        <option value="monthly">Monthly</option>
+      </select>
+    </div>
+
+    <!-- Chart -->
+    <div id="chartsContainer" class="hidden">
+      <h2 id="areaTitle" style="text-align:center; margin-bottom: 15px;"></h2>
+      <canvas id="combinedChart" height="100"></canvas>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div>
+      📞 <strong>Contact Us</strong><br>
+      +91 98765 43210<br>
+      <a href="mailto:support@greenpulse.org">support@greenpulse.org</a>
+    </div>
+
+    <div>
+      📘 <strong>Awareness</strong><br>
+      <a href="#">Clean Air Initiative</a><br>
+      <a href="#">UNEP Campaign</a>
+    </div>
+
+    <div>
+      📚 <strong>About Air Pollution</strong><br>
+      <a href="#">MOEF India</a><br>
+      <a href="#">WHO Air Quality</a>
+    </div>
+  </footer>
+
+  <!-- JS Chart Logic -->
+  <script>
+    const areas = [
+      "MVP Colony", "Gajuwaka", "Seethammadhara", "Dwaraka Nagar", "Rushikonda",
+      "Akkayyapalem", "Siripuram", "Jagadamba Junction", "NAD Junction", "Kurmannapalem",
+      "Gopalapatnam", "PM Palem", "Bheemunipatnam", "Anakapalle", "Kancharapalem",
+      "Kommadi", "Pendurthi", "Yendada", "Sheela Nagar", "Malkapuram"
+    ];
+
+    const pollutionData = {}, treesData = {};
+    areas.forEach(area => {
+      pollutionData[area] = {
+        daily: Array.from({ length: 30 }, () => 50 + Math.floor(Math.random() * 100)),
+        monthly: Array.from({ length: 6 }, (_, i) => 120 - i * 10 + Math.floor(Math.random() * 10))
+      };
+      treesData[area] = {
+        daily: Array.from({ length: 30 }, () => 10 + Math.floor(Math.random() * 30)),
+        monthly: Array.from({ length: 6 }, (_, i) => 40 + i * 10 + Math.floor(Math.random() * 10))
+      };
+    });
+
+    const areaSelect = document.getElementById('areaSelect');
+    const dateInput = document.getElementById('dateInput');
+    const viewType = document.getElementById('viewType');
+    const chartsContainer = document.getElementById('chartsContainer');
+    const areaTitle = document.getElementById('areaTitle');
+    let combinedChartInstance;
+
+    function drawChart(area, view, dateStr) {
+      if (!area || !view) return;
+      chartsContainer.style.display = 'block';
+      areaTitle.innerText = `Pollution & Trees Planted in ${area} (${view} view)`;
+
+      let labels = [], pollution = [], trees = [];
+      if (view === "daily") {
+        const chosenDate = new Date(dateStr);
+        for (let offset = -3; offset <= 3; offset++) {
+          let tempDate = new Date(chosenDate);
+          tempDate.setDate(chosenDate.getDate() + offset);
+          labels.push(tempDate.toISOString().split('T')[0]);
+          const index = tempDate.getDate() % 30;
+          pollution.push(pollutionData[area].daily[index]);
+          trees.push(treesData[area].daily[index]);
+        }
+      } else {
+        labels = ['Month -5', 'Month -4', 'Month -3', 'Month -2', 'Month -1', 'Current'];
+        pollution = pollutionData[area].monthly;
+        trees = treesData[area].monthly;
+      }
+
+      if (combinedChartInstance) combinedChartInstance.destroy();
+
+      combinedChartInstance = new Chart(document.getElementById('combinedChart'), {
+        type: view === "daily" ? "line" : "bar",
+        data: {
+          labels,
+          datasets: [
+            {
+              label: 'PM2.5 Pollution',
+              data: pollution,
+              backgroundColor: view === "monthly" ? 'rgba(255,165,0,0.7)' : 'rgba(220,20,60,0.2)',
+              borderColor: view === "monthly" ? 'rgba(255,165,0,1)' : 'rgba(220,20,60,0.8)',
+              borderWidth: 2,
+              yAxisID: 'y'
+            },
+            {
+              label: 'Trees Planted',
+              data: trees,
+              backgroundColor: view === "monthly" ? 'rgba(50,205,50,0.7)' : 'rgba(34,139,34,0.2)',
+              borderColor: view === "monthly" ? 'rgba(50,205,50,1)' : 'rgba(34,139,34,0.8)',
+              borderWidth: 2,
+              yAxisID: 'y1'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { type: 'linear', position: 'left', title: { display: true, text: 'Pollution (PM2.5)' } },
+            y1: { type: 'linear', position: 'right', title: { display: true, text: 'Trees Planted' }, grid: { drawOnChartArea: false } }
+          }
+        }
+      });
+    }
+
+    function handleSearch() {
+      const area = areaSelect.value;
+      const view = viewType.value;
+      const dateStr = dateInput.value;
+      if (area && view && (view === "monthly" || dateStr)) {
+        drawChart(area, view, dateStr || new Date().toISOString().split('T')[0]);
+      }
+    }
+
+    areaSelect.addEventListener('change', handleSearch);
+    viewType.addEventListener('change', handleSearch);
+    dateInput.addEventListener('change', handleSearch);
+  </script>
+</body>
+</html>

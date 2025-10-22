@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Plastic Pollution Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fce4ec;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .quiz-container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .option {
+      background-color: #fce4ec;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      background-color: #f8bbd0;
+    }
+
+    .selected {
+      background-color: #f06292;
+      color: white;
+      border: 2px solid #880e4f;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #ec407a;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #d81b60;
+    }
+
+    .score {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h2 id="question">Loading question...</h2>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Next</button>
+    <div class="score" id="score"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "1. What is the main source of plastic pollution?",
+        options: ["Organic waste", "Single-use plastics", "Glass bottles", "Metal cans"],
+        answer: "Single-use plastics"
+      },
+      {
+        question: "2. Which of the following is NOT biodegradable?",
+        options: ["Paper", "Banana peel", "Plastic bag", "Cotton"],
+        answer: "Plastic bag"
+      },
+      {
+        question: "3. What are microplastics?",
+        options: ["Large plastic pieces", "Tiny plastic particles", "Metallic waste", "Glass shards"],
+        answer: "Tiny plastic particles"
+      },
+      {
+        question: "4. Plastic pollution mostly affects which environment?",
+        options: ["Mountains", "Deserts", "Oceans", "Caves"],
+        answer: "Oceans"
+      },
+      {
+        question: "5. Which animal is most affected by ocean plastic?",
+        options: ["Elephants", "Lions", "Turtles", "Bears"],
+        answer: "Turtles"
+      },
+      {
+        question: "6. Which action helps reduce plastic pollution?",
+        options: ["Use more plastic", "Burn plastic", "Use reusable bags", "Throw in rivers"],
+        answer: "Use reusable bags"
+      },
+      {
+        question: "7. What is the symbol for recyclable plastic?",
+        options: ["Leaf icon", "Triangle with arrows", "Red dot", "Star shape"],
+        answer: "Triangle with arrows"
+      },
+      {
+        question: "8. How long does a plastic bottle take to decompose?",
+        options: ["1 year", "10 years", "100 years", "450 years"],
+        answer: "450 years"
+      },
+      {
+        question: "9. Which country banned single-use plastic first?",
+        options: ["India", "Kenya", "USA", "Brazil"],
+        answer: "Kenya"
+      },
+      {
+        question: "10. What is a good alternative to plastic straws?",
+        options: ["Steel straws", "Paper clips", "Rubber bands", "Glass bottles"],
+        answer: "Steel straws"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedOption = null;
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      document.getElementById("question").textContent = q.question;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      q.options.forEach(option => {
+        const div = document.createElement("div");
+        div.textContent = option;
+        div.className = "option";
+        div.onclick = () => {
+          selectedOption = option;
+          document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
+          div.classList.add("selected");
+        };
+        optionsDiv.appendChild(div);
+      });
+    }
+
+    function nextQuestion() {
+      if (!selectedOption) {
+        alert("Please select an option!");
+        return;
+      }
+
+      if (selectedOption === quizData[currentQuestion].answer) {
+        score++;
+      }
+
+      currentQuestion++;
+      selectedOption = null;
+
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        document.getElementById("question").textContent = "Quiz Completed!";
+        document.getElementById("options").innerHTML = "";
+        document.querySelector("button").style.display = "none";
+        document.getElementById("score").textContent = `Your Score: ${score} / ${quizData.length}`;
+      }
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>

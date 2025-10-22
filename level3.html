@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Transportation & Air Pollution Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8e1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .quiz-container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .option {
+      background-color: #fff3cd;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      background-color: #ffeeba;
+    }
+
+    .selected {
+      background-color: #ffe082;
+      border: 2px solid #ff6f00;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #ff8f00;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e65100;
+    }
+
+    .score {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h2 id="question">Loading question...</h2>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Next</button>
+    <div class="score" id="score"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "1. Which transport mode causes the most air pollution?",
+        options: ["Bicycles", "Electric cars", "Diesel vehicles", "Walking"],
+        answer: "Diesel vehicles"
+      },
+      {
+        question: "2. Which gas is mainly emitted by petrol and diesel vehicles?",
+        options: ["Oxygen", "Carbon dioxide", "Nitrogen", "Helium"],
+        answer: "Carbon dioxide"
+      },
+      {
+        question: "3. Which fuel is considered clean and used in CNG vehicles?",
+        options: ["Coal", "Kerosene", "Compressed Natural Gas", "Petrol"],
+        answer: "Compressed Natural Gas"
+      },
+      {
+        question: "4. What is the best way to reduce vehicle emissions?",
+        options: ["Use more diesel", "Drive alone", "Use public transport", "Avoid servicing"],
+        answer: "Use public transport"
+      },
+      {
+        question: "5. Which part of the vehicle helps reduce pollution?",
+        options: ["Steering wheel", "Catalytic converter", "Gearbox", "Wiper"],
+        answer: "Catalytic converter"
+      },
+      {
+        question: "6. What type of vehicles are eco-friendly?",
+        options: ["Electric vehicles", "Diesel trucks", "Old cars", "None of these"],
+        answer: "Electric vehicles"
+      },
+      {
+        question: "7. What is a direct result of vehicle air pollution?",
+        options: ["Better mileage", "Soil formation", "Smog and respiratory issues", "Rainfall"],
+        answer: "Smog and respiratory issues"
+      },
+      {
+        question: "8. What is carpooling?",
+        options: ["Racing cars", "Sharing a car ride", "Parking cars", "Washing cars"],
+        answer: "Sharing a car ride"
+      },
+      {
+        question: "9. Which fuel emits the least CO2?",
+        options: ["Petrol", "Diesel", "CNG", "LPG"],
+        answer: "CNG"
+      },
+      {
+        question: "10. What is the biggest contributor to urban air pollution?",
+        options: ["Factories", "Farming", "Road transport", "Fishing"],
+        answer: "Road transport"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedOption = null;
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      document.getElementById("question").textContent = q.question;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      q.options.forEach(option => {
+        const div = document.createElement("div");
+        div.textContent = option;
+        div.className = "option";
+        div.onclick = () => {
+          selectedOption = option;
+          document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
+          div.classList.add("selected");
+        };
+        optionsDiv.appendChild(div);
+      });
+    }
+
+    function nextQuestion() {
+      if (!selectedOption) {
+        alert("Please select an option!");
+        return;
+      }
+
+      if (selectedOption === quizData[currentQuestion].answer) {
+        score++;
+      }
+
+      currentQuestion++;
+      selectedOption = null;
+
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        document.getElementById("question").textContent = "Quiz Completed!";
+        document.getElementById("options").innerHTML = "";
+        document.querySelector("button").style.display = "none";
+        document.getElementById("score").textContent = `Your Score: ${score} / ${quizData.length}`;
+      }
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>

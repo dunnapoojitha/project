@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GreenPulse - Quiz Levels</title>
+  <style>
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    /* HEADER SECTION */
+    .main-header {
+      background-color: #111;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .logo .slogan {
+      font-size: 12px;
+      font-weight: normal;
+      color: #aaa;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .nav-buttons button,
+    .profile-button button {
+      background-color: #00cc66;
+      border: none;
+      padding: 8px 16px;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .nav-buttons button:hover,
+    .profile-button button:hover {
+      background-color: #00994d;
+    }
+
+    .profile-button {
+      margin-top: 10px;
+    }
+
+    /* MAIN CONTENT */
+    .main {
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      text-align: center;
+    }
+
+    .level {
+      width: 200px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .level:hover {
+      transform: scale(1.05);
+    }
+
+    .level img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .level-title {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* FOOTER SECTION */
+    .main-footer {
+      background-color: #111;
+      color: white;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 30px 20px;
+      margin-top: 40px;
+    }
+
+    .footer-section {
+      max-width: 250px;
+      margin-bottom: 20px;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 10px;
+      color: #00cc66;
+    }
+
+    .footer-section a {
+      color: #a3e4ff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .footer-section a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER SECTION -->
+  <header class="main-header">
+    <div class="logo">
+      🌿 <strong>GreenPulse</strong><br>
+      <span class="slogan">Let's fight air pollution together!</span>
+    </div>
+
+    <nav class="nav-buttons">
+      <button onclick="location.href='home.html'">solutions</button>  
+      <button onclick="location.href='solutions.html'">solutions</button>
+      <button onclick="location.href='funds.html'">funds</button>
+      <button onclick="location.href='quizzes.html'">quizes</button>
+      <button onclick="location.href='pollution-check.html'">check pollution</button>
+      <button onclick="location.href='moderate.html'">moderate</button>
+    </nav>
+
+    <div class="profile-button">
+      <button onclick="location.href='profile.html'">Profile</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT: Quiz Level Icons -->
+  <div class="main">
+    <div class="level" onclick="openLevel(1)">
+      <img src="level1.jpg" alt="Level 1">
+      <div class="level-title">Level 1</div>
+    </div>
+    <div class="level" onclick="openLevel(2)">
+      <img src="level2.jpg" alt="Level 2">
+      <div class="level-title">Level 2</div>
+    </div>
+    <div class="level" onclick="openLevel(3)">
+      <img src="level3.jpg" alt="Level 3">
+      <div class="level-title">Level 3</div>
+    </div>
+    <div class="level" onclick="openLevel(4)">
+      <img src="level4.jpg" alt="Level 4">
+      <div class="level-title">Level 4</div>
+    </div>
+    <div class="level" onclick="openLevel(5)">
+      <img src="level5.jpg" alt="Level 5">
+      <div class="level-title">Level 5</div>
+    </div>
+    <div class="level" onclick="openLevel(5)">
+      <img src="level6.jpg" alt="Level 5">
+      <div class="level-title">Level 6</div>
+    </div>
+    <div class="level" onclick="openLevel(5)">
+      <img src="level7.jpg" alt="Level 5">
+      <div class="level-title">Level 7</div>
+    </div>
+    <div class="level" onclick="openLevel(5)">
+      <img src="level8.jpg" alt="Level 5">
+      <div class="level-title">Level 8</div>
+    </div>
+  </div>
+
+  <!-- FOOTER SECTION -->
+  <footer class="main-footer">
+    <div class="footer-section">
+      <h4>📞 Contact Us</h4>
+      <p>+91 98765 43210</p>
+      <p>support@greenpulse.org</p>
+    </div>
+
+    <div class="footer-section">
+      <h4>📢 Awareness</h4>
+      <p>Learn about clean air and stay safe:</p>
+      <a href="#">Clean Air Initiative</a><br>
+      <a href="#">UNEP Campaign</a>
+    </div>
+
+    <div class="footer-section">
+      <h4>🌀 About Air Pollution</h4>
+      <a href="#">MoEF India</a><br>
+      <a href="#">WHO Air Quality</a>
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    function openLevel(level) {
+      window.location.href = `level${level}.html`;
+    }
+  </script>
+
+</body>
+</html>

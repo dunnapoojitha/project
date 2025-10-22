@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agriculture & Air Pollution Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f1f8e9;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .quiz-container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0, 100, 0, 0.2);
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #33691e;
+    }
+
+    .option {
+      background-color: #e6ee9c;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid #cddc39;
+    }
+
+    .option:hover {
+      background-color: #dce775;
+    }
+
+    .selected {
+      background-color: #aed581;
+      border: 2px solid #558b2f;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #7cb342;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #558b2f;
+    }
+
+    .score {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h2 id="question">Loading question...</h2>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Next</button>
+    <div class="score" id="score"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "1. Which farming activity is a major cause of air pollution?",
+        options: ["Plowing fields", "Using fertilizers", "Burning crop residue", "Watering plants"],
+        answer: "Burning crop residue"
+      },
+      {
+        question: "2. Which gas is released from overuse of nitrogen fertilizers?",
+        options: ["Methane", "Nitrous oxide (N₂O)", "Oxygen", "Carbon monoxide"],
+        answer: "Nitrous oxide (N₂O)"
+      },
+      {
+        question: "3. What is the main air pollutant from livestock farming?",
+        options: ["Ammonia (NH₃)", "Carbon dioxide", "Sulfur dioxide", "Ozone"],
+        answer: "Ammonia (NH₃)"
+      },
+      {
+        question: "4. Which of the following farming practices reduces air pollution?",
+        options: ["Crop burning", "Excess pesticide use", "Organic farming", "Deforestation"],
+        answer: "Organic farming"
+      },
+      {
+        question: "5. Methane emissions mainly come from which farming source?",
+        options: ["Tractors", "Cows and rice paddies", "Wheat fields", "Orchards"],
+        answer: "Cows and rice paddies"
+      },
+      {
+        question: "6. What is a sustainable alternative to burning crop waste?",
+        options: ["Dumping in rivers", "Making compost", "Spraying chemicals", "Leaving on road"],
+        answer: "Making compost"
+      },
+      {
+        question: "7. Which season sees more agricultural air pollution in India?",
+        options: ["Monsoon", "Winter", "Summer", "Spring"],
+        answer: "Winter"
+      },
+      {
+        question: "8. Which machine helps reduce pollution from stubble burning?",
+        options: ["Thresher", "Tractor", "Happy Seeder", "Harvester"],
+        answer: "Happy Seeder"
+      },
+      {
+        question: "9. Pesticide sprays pollute which layer of air?",
+        options: ["Stratosphere", "Troposphere", "Mesosphere", "Exosphere"],
+        answer: "Troposphere"
+      },
+      {
+        question: "10. What is the effect of agricultural air pollution on human health?",
+        options: ["Better growth", "Clean lungs", "Respiratory issues", "None"],
+        answer: "Respiratory issues"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedOption = null;
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      document.getElementById("question").textContent = q.question;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      q.options.forEach(option => {
+        const div = document.createElement("div");
+        div.textContent = option;
+        div.className = "option";
+        div.onclick = () => {
+          selectedOption = option;
+          document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
+          div.classList.add("selected");
+        };
+        optionsDiv.appendChild(div);
+      });
+    }
+
+    function nextQuestion() {
+      if (!selectedOption) {
+        alert("Please select an option!");
+        return;
+      }
+
+      if (selectedOption === quizData[currentQuestion].answer) {
+        score++;
+      }
+
+      currentQuestion++;
+      selectedOption = null;
+
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        document.getElementById("question").textContent = "Quiz Completed!";
+        document.getElementById("options").innerHTML = "";
+        document.querySelector("button").style.display = "none";
+        document.getElementById("score").textContent = `✅ Your Score: ${score} / ${quizData.length}`;
+      }
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Air Pollution Quiz – All Topics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0faff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .quiz-box, .summary-box {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    h2, h1 {
+      color: #00695c;
+      text-align: center;
+    }
+
+    .question {
+      font-size: 18px;
+      margin: 20px 0;
+    }
+
+    .option {
+      margin-bottom: 12px;
+    }
+
+    .option input {
+      margin-right: 10px;
+    }
+
+    .btn {
+      margin-top: 20px;
+      background: #00897b;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn:hover {
+      background: #00695c;
+    }
+
+    .level {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background-color: #f1f8e9;
+      transition: 0.3s;
+    }
+
+    .level:hover {
+      background-color: #dcedc8;
+    }
+
+    .level img {
+      width: 60px;
+      height: 60px;
+      margin-right: 20px;
+      border-radius: 8px;
+      border: 2px solid #c8e6c9;
+      object-fit: cover;
+    }
+
+    .level-text h3 {
+      margin: 0;
+      color: #33691e;
+    }
+
+    .level-text p {
+      margin: 4px 0 0;
+      color: #555;
+      font-size: 15px;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas" style="display:none;"></canvas>
+
+  <!-- Quiz Box -->
+  <div class="quiz-box" id="quizBox">
+    <h2>🌍 Air Pollution Quiz – All Topics</h2>
+    <div class="question" id="questionText">Loading...</div>
+    <div id="optionsContainer"></div>
+    <button class="btn" onclick="nextQuestion()">Next</button>
+  </div>
+
+  <!-- Summary Box -->
+  <div class="summary-box" id="summaryBox" style="display:none;">
+    <h1>🎉 All Levels Completed!</h1>
+
+    <div class="level">
+      <img src="plastic.jpg" alt="Plastic Icon">
+      <div class="level-text">
+        <h3>Plastic Pollution</h3>
+        <p>Learned about single-use plastics, microplastics, and marine impact.</p>
+      </div>
+    </div>
+
+    <div class="level">
+      <img src="trans.jpg" alt="Transport Icon">
+      <div class="level-text">
+        <h3>Transportation & Emissions</h3>
+        <p>Understood how vehicles and fuels contribute to air pollution.</p>
+      </div>
+    </div>
+
+    <div class="level">
+    <img src="agg.jpg" alt="Agriculture Icon">
+      <div class="level-text">
+        <h3>Agriculture</h3>
+        <p>Explored the effects of fertilizer, livestock, and crop burning on air quality.</p>
+      </div>
+    </div>
+
+    <div class="level">
+      <img src="plant.jpg" alt="Plants Icon">
+      <div class="level-text">
+        <h3>Plants & Green Cover</h3>
+        <p>Learned how trees and greenery help reduce pollution and purify air.</p>
+      </div>
+    </div>
+
+    <div class="level">
+      <img src="ff.jpg" alt="Fossil Fuel Icon">
+      <div class="level-text">
+        <h3>Fossil Fuels & Combustion</h3>
+        <p>Studied coal, gas burning and their role in global warming and smog.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const quizData = [
+      { q: "Which of the following is a major source of plastic pollution?", options: ["Glass bottles", "Single-use plastics", "Wood", "Paper"], answer: "Single-use plastics" },
+      { q: "Plastic pollution most harms which ecosystem?", options: ["Deserts", "Oceans", "Mountains", "Cities"], answer: "Oceans" },
+      { q: "Which gas is released most from vehicle exhausts?", options: ["CO2", "Oxygen", "Helium", "Methane"], answer: "CO2" },
+      { q: "Using which vehicle reduces air pollution?", options: ["Diesel car", "Electric vehicle", "Motorbike", "Truck"], answer: "Electric vehicle" },
+      { q: "Burning crop residues causes which problem?", options: ["Rain", "Fog", "Smog", "Fertility"], answer: "Smog" },
+      { q: "Which increases methane in agriculture?", options: ["Wheat farming", "Livestock farming", "Irrigation", "Ploughing"], answer: "Livestock farming" },
+      { q: "What do plants absorb from air?", options: ["CO2", "Oxygen", "Nitrogen", "Methane"], answer: "CO2" },
+      { q: "Which trees help fight air pollution?", options: ["Plastic trees", "Concrete trees", "Banyan & Neem", "Cactus"], answer: "Banyan & Neem" },
+      { q: "Which fuel is not a fossil fuel?", options: ["Coal", "Petrol", "Solar", "Diesel"], answer: "Solar" },
+      { q: "Burning fossil fuels mainly causes:", options: ["Clean air", "Greenhouse gases", "Rain", "Wind"], answer: "Greenhouse gases" },
+      { q: "Which disease is linked to air pollution?", options: ["Asthma", "Cancer", "All of these", "Cold"], answer: "All of these" },
+      { q: "Who are most affected by air pollution?", options: ["Young adults", "Children and elderly", "Animals only", "Plants"], answer: "Children and elderly" },
+      { q: "Which particle in air pollution is dangerous?", options: ["PM10", "PM2.5", "CO2", "H2O"], answer: "PM2.5" },
+      { q: "What is AQI?", options: ["Air Quality Index", "Air Quantity Indicator", "Average Quantity Info", "None"], answer: "Air Quality Index" },
+      { q: "Main cause of indoor air pollution in rural homes?", options: ["CFL bulbs", "Smoke from cooking fuels", "Mirrors", "TV"], answer: "Smoke from cooking fuels" },
+      { q: "Which mask helps during pollution?", options: ["Cloth mask", "Surgical mask", "N95 mask", "No mask"], answer: "N95 mask" },
+      { q: "Trees help reduce air pollution by:", options: ["Blocking sunlight", "Absorbing CO2", "Producing dust", "Consuming water"], answer: "Absorbing CO2" },
+      { q: "Best time to go outside on polluted days is:", options: ["Noon", "Night", "When AQI is low", "Morning"], answer: "When AQI is low" },
+      { q: "Air pollution can lead to:", options: ["Lung damage", "Soil erosion", "Better oxygen", "Rainfall"], answer: "Lung damage" },
+      { q: "Public transport helps by:", options: ["Increasing traffic", "Reducing emissions", "Causing smog", "Wasting fuel"], answer: "Reducing emissions" }
+    ];
+
+    let currentQ = 0;
+    function loadQuestion() {
+      const qData = quizData[currentQ];
+      document.getElementById("questionText").innerText = `Q${currentQ + 1}. ${qData.q}`;
+      document.getElementById("optionsContainer").innerHTML = qData.options.map(opt => `
+        <div class="option"><label><input type="radio" name="option" value="${opt}"> ${opt}</label></div>
+      `).join("");
+    }
+
+    function nextQuestion() {
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) {
+        alert("Please select an answer!");
+        return;
+      }
+      currentQ++;
+      if (currentQ < quizData.length) {
+        loadQuestion();
+      } else {
+        document.getElementById("quizBox").style.display = "none";
+        document.getElementById("summaryBox").style.display = "block";
+        document.getElementById("confetti-canvas").style.display = "block";
+        drawConfetti();
+      }
+    }
+
+    // 🎉 Confetti Animation
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const particles = [];
+    for (let i = 0; i < 150; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        speed: Math.random() * 3 + 2,
+        radius: Math.random() * 6 + 2,
+        color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+      });
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        p.y += p.speed;
+        if (p.y > canvas.height) {
+          p.y = -10;
+          p.x = Math.random() * canvas.width;
+        }
+      }
+      requestAnimationFrame(drawConfetti);
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>

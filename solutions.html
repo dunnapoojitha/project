@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Solutions - GreenPulse</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4fff5;
+    }
+
+    header {
+      background-color: #111;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-buttons a button {
+      background-color: #2ecc71;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      color: white;
+    }
+
+    .solution-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+
+    .solution-card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .solution-card:hover {
+      transform: scale(1.02);
+    }
+
+    .solution-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .solution-card h3 {
+      padding: 10px;
+      color: #2e7d32;
+      margin: 0;
+    }
+
+    .solution-details {
+      display: none;
+      padding: 0 15px 15px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    footer {
+      background-color: #111;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    footer div {
+      margin: 10px 0;
+    }
+
+    footer a {
+      color: #58caff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="logo.png" alt="Logo" />
+    <span><strong>GreenPulse</strong><br><small>Let's fight air pollution</small></span>
+  </div>
+  <div class="nav-buttons">
+    <a href="home.html"><button>Home</button></a>
+    <a href="solutions.html"><button>Solutions</button></a>
+    <a href="check.html"><button>Check</button></a>
+    <a href="moderate.html"><button>Moderate</button></a>
+    <a href="quizzes.html"><button>Quizzes</button></a>
+    <a href="funds.html"><button>Funds</button></a>
+    <a href="profile.html"><button>Profile</button></a>
+  </div>
+</header>
+
+<div class="solution-grid">
+
+  <div class="solution-card" onclick="toggleDetails(this)">
+    <img src="tree.jpg" alt="Tree Plantation" />
+    <h3>Tree Plantation</h3>
+    <div class="solution-details">
+      Trees naturally filter air, absorb carbon dioxide, and release oxygen. Community tree planting improves air quality and biodiversity.
+    </div>
+  </div>
+
+  <div class="solution-card" onclick="toggleDetails(this)">
+    <img src="SOLAR.jpg" alt="Solar Power" />
+    <h3>Solar Power</h3>
+    <div class="solution-details">
+      Solar panels reduce dependence on fossil fuels. Solar homes and street lights cut emissions and promote renewable living.
+    </div>
+  </div>
+
+  <div class="solution-card" onclick="toggleDetails(this)">
+    <img src="ELECTRIC.jpg" alt="Electric Vehicles" />
+    <h3>Electric Vehicles</h3>
+    <div class="solution-details">
+      EVs eliminate tailpipe pollution, reduce noise, and improve urban air quality. Governments offer subsidies for switching to EVs.
+    </div>
+  </div>
+
+  <div class="solution-card" onclick="toggleDetails(this)">
+    <img src="aware.jpg" alt="Awareness" />
+    <h3>Awareness Programs</h3>
+    <div class="solution-details">
+      Awareness campaigns educate people about pollution sources and eco-friendly actions. Change starts with informed citizens.
+    </div>
+  </div>
+
+  <div class="solution-card" onclick="toggleDetails(this)">
+    <img src="public.jpg" alt="Public Transport" />
+    <h3>Use of Public Transport</h3>
+    <div class="solution-details">
+      Buses, metros, and carpools reduce the number of vehicles on roads, cutting fuel use and lowering smog levels.
+    </div>
+  </div>
+
+  <div class="solution-card" onclick="toggleDetails(this)">
+    <img src="purifier.jpg" alt="Air Purifiers" />
+    <h3>Smart Air Purifiers</h3>
+    <div class="solution-details">
+      Indoor air pollution is deadly too. Installing air purifiers in schools, hospitals, and homes ensures safer breathing indoors.
+    </div>
+  </div>
+
+  <div class="solution-card" onclick="toggleDetails(this)">
+    <img src="biogas.jpg" alt="Biogas" />
+    <h3>Biogas Usage</h3>
+    <div class="solution-details">
+      Converting organic waste to biogas reduces landfill emissions and replaces polluting fuels with cleaner cooking gas.
+    </div>
+  </div>
+
+  <div class="solution-card" onclick="toggleDetails(this)">
+    <img src="air.jpg" alt="Monitoring" />
+    <h3>Air Quality Monitoring</h3>
+    <div class="solution-details">
+      Sensors track pollution levels in real-time. Mobile apps help people avoid hotspots and demand action from authorities.
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div><strong>Contact Us:</strong> +91 9876543210</div>
+  <div><strong>About:</strong> <a href="#">Air Initiative</a> | <a href="#">WHO Air Quality</a> | <a href="#">MoEF India</a></div>
+  <div>&copy; 2025 GreenPulse. All rights reserved.</div>
+</footer>
+
+<script>
+  function toggleDetails(card) {
+    const detail = card.querySelector(".solution-details");
+    detail.style.display = detail.style.display === "block" ? "none" : "block";
+  }
+</script>
+
+</body>
+</html>

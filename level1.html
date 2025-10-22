@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Industrial Air Pollution Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0faff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .quiz-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .option {
+      background-color: #f2f2f2;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      background-color: #e0f7fa;
+    }
+
+    .selected {
+      background-color: #c8e6c9;
+      border: 2px solid #388e3c;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0d8ddb;
+    }
+
+    .score {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h2 id="question">Loading question...</h2>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Next</button>
+    <div class="score" id="score"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "1. What is a major source of industrial air pollution?",
+        options: ["Solar panels", "Wind turbines", "Factory smokestacks", "Rainwater"],
+        answer: "Factory smokestacks"
+      },
+      {
+        question: "2. Which gas is commonly released from steel industries?",
+        options: ["Oxygen", "Carbon monoxide", "Nitrogen", "Helium"],
+        answer: "Carbon monoxide"
+      },
+      {
+        question: "3. What pollutant is mostly emitted by cement factories?",
+        options: ["Sulfur dioxide", "Lead", "Particulate matter", "Methane"],
+        answer: "Particulate matter"
+      },
+      {
+        question: "4. What is a common method to reduce industrial air pollution?",
+        options: ["Burning plastic", "Using electrostatic precipitators", "Using diesel generators", "Opening all windows"],
+        answer: "Using electrostatic precipitators"
+      },
+      {
+        question: "5. Which law controls industrial air emissions in India?",
+        options: ["Air (Prevention and Control of Pollution) Act", "Forest Act", "Wildlife Act", "None"],
+        answer: "Air (Prevention and Control of Pollution) Act"
+      },
+      {
+        question: "6. What is a harmful metal found in industrial air pollution?",
+        options: ["Gold", "Copper", "Lead", "Silver"],
+        answer: "Lead"
+      },
+      {
+        question: "7. Which industry causes high SO2 emissions?",
+        options: ["Textile", "Thermal power plants", "Food", "IT Industry"],
+        answer: "Thermal power plants"
+      },
+      {
+        question: "8. Which fuel contributes most to industrial pollution?",
+        options: ["Hydrogen", "Biogas", "Coal", "Ethanol"],
+        answer: "Coal"
+      },
+      {
+        question: "9. What is the full form of VOCs in air pollution?",
+        options: ["Volatile Organic Compounds", "Very Old Chemicals", "Visible Odor Chemicals", "Vapor Over Carbon"],
+        answer: "Volatile Organic Compounds"
+      },
+      {
+        question: "10. Which agency monitors industrial air pollution in India?",
+        options: ["ISRO", "BCCI", "CPCB", "NASA"],
+        answer: "CPCB"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedOption = null;
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      document.getElementById("question").textContent = q.question;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      q.options.forEach(option => {
+        const div = document.createElement("div");
+        div.textContent = option;
+        div.className = "option";
+        div.onclick = () => {
+          selectedOption = option;
+          document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
+          div.classList.add("selected");
+        };
+        optionsDiv.appendChild(div);
+      });
+    }
+
+    function nextQuestion() {
+      if (!selectedOption) {
+        alert("Please select an option!");
+        return;
+      }
+
+      if (selectedOption === quizData[currentQuestion].answer) {
+        score++;
+      }
+
+      currentQuestion++;
+      selectedOption = null;
+
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        document.getElementById("question").textContent = "Quiz Completed!";
+        document.getElementById("options").innerHTML = "";
+        document.querySelector("button").style.display = "none";
+        document.getElementById("score").textContent = `Your Score: ${score} / ${quizData.length}`;
+      }
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>

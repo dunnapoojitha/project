@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fossil Fuels & Air Pollution Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fbe9e7;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .quiz-container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #bf360c;
+    }
+
+    .option {
+      background-color: #ffe0b2;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid #ffcc80;
+    }
+
+    .option:hover {
+      background-color: #ffcc80;
+    }
+
+    .selected {
+      background-color: #ffab91;
+      border: 2px solid #d84315;
+      color: white;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #e64a19;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #bf360c;
+    }
+
+    .score {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h2 id="question">Loading question...</h2>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Next</button>
+    <div class="score" id="score"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "1. What are fossil fuels made from?",
+        options: ["Plastic", "Living organisms from millions of years ago", "Sand", "Metal"],
+        answer: "Living organisms from millions of years ago"
+      },
+      {
+        question: "2. Which of the following is a fossil fuel?",
+        options: ["Solar power", "Coal", "Wind", "Hydropower"],
+        answer: "Coal"
+      },
+      {
+        question: "3. What harmful gas is mostly released during fossil fuel combustion?",
+        options: ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"],
+        answer: "Carbon dioxide"
+      },
+      {
+        question: "4. What is the main environmental problem caused by fossil fuel burning?",
+        options: ["Rain", "Climate change", "Recycling", "Earthquakes"],
+        answer: "Climate change"
+      },
+      {
+        question: "5. Which fossil fuel is commonly used in vehicles?",
+        options: ["Gasoline (Petrol)", "Solar", "Water", "Wind"],
+        answer: "Gasoline (Petrol)"
+      },
+      {
+        question: "6. Which sector uses the most fossil fuels globally?",
+        options: ["Farming", "Transportation", "Fishing", "Forestry"],
+        answer: "Transportation"
+      },
+      {
+        question: "7. Which of the following gases contributes to acid rain from fossil fuels?",
+        options: ["Nitrogen oxides & Sulfur dioxide", "Oxygen", "Methane", "Helium"],
+        answer: "Nitrogen oxides & Sulfur dioxide"
+      },
+      {
+        question: "8. What device can reduce emissions from vehicles?",
+        options: ["Battery", "Fuel tank", "Catalytic converter", "Air filter"],
+        answer: "Catalytic converter"
+      },
+      {
+        question: "9. What health effect is most common from fossil fuel air pollution?",
+        options: ["Headache", "Broken bones", "Respiratory diseases", "Toothache"],
+        answer: "Respiratory diseases"
+      },
+      {
+        question: "10. Which of the following is a clean alternative to fossil fuels?",
+        options: ["Diesel", "Natural Gas", "Solar Power", "Crude Oil"],
+        answer: "Solar Power"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedOption = null;
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      document.getElementById("question").textContent = q.question;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      q.options.forEach(option => {
+        const div = document.createElement("div");
+        div.textContent = option;
+        div.className = "option";
+        div.onclick = () => {
+          selectedOption = option;
+          document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
+          div.classList.add("selected");
+        };
+        optionsDiv.appendChild(div);
+      });
+    }
+
+    function nextQuestion() {
+      if (!selectedOption) {
+        alert("Please select an option!");
+        return;
+      }
+
+      if (selectedOption === quizData[currentQuestion].answer) {
+        score++;
+      }
+
+      currentQuestion++;
+      selectedOption = null;
+
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        document.getElementById("question").textContent = "Quiz Completed!";
+        document.getElementById("options").innerHTML = "";
+        document.querySelector("button").style.display = "none";
+        document.getElementById("score").textContent = `✅ Your Score: ${score} / ${quizData.length}`;
+      }
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>
