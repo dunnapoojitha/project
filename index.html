@@ -1,156 +1,359 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
   <title>Welcome - EcolImpact</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    body {
+    :root {
+      --accent: #00cc88;
+      --accent-strong: #00b370;
+      --bg-overlay: rgba(0,0,0,0.75);
+      --container-width: 400px;
+    }
+
+    html,body {
+      height: 100%;
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: Arial, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      color: #fff;
       background: url("background.jpg") no-repeat center center fixed;
       background-size: cover;
+    }
+
+    .page {
+      min-height: 100%;
       display: flex;
-      justify-content: center;
       align-items: center;
-      height: 100vh;
-      color: white;
+      justify-content: center;
+      padding: 24px;
     }
 
     .container {
-      background-color: rgba(0, 0, 0, 0.75);
-      padding: 40px;
-      border-radius: 15px;
-      width: 400px;
+      width: 100%;
+      max-width: var(--container-width);
+      background: var(--bg-overlay);
+      border-radius: 14px;
+      padding: 32px;
+      box-sizing: border-box;
       text-align: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
     }
 
     .logo {
       font-size: 28px;
       color: #00ff99;
-      margin-bottom: 15px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
     .description {
       font-size: 15px;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
+      line-height: 1.35;
+      opacity: 0.95;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
     }
 
     .btn {
-      padding: 10px 20px;
-      margin: 10px 5px;
+      padding: 10px 18px;
+      border-radius: 6px;
       border: none;
-      background-color: #00cc88;
-      color: white;
-      border-radius: 5px;
       cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      transition: background .12s ease, transform .06s ease;
+      user-select: none;
     }
 
-    input {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: none;
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff;
+    }
+
+    .btn.active {
+      background: var(--accent-strong);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
     }
 
     .form-box {
       display: none;
-      margin-top: 20px;
+      margin-top: 18px;
+      text-align: left;
     }
 
-    .visible {
+    .form-box.visible {
       display: block;
+    }
+
+    .form-row {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display:block;
+      font-size: 13px;
+      margin-bottom: 6px;
+      opacity: 0.95;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: none;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    .submit-row {
+      display:flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .msg {
+      font-size: 13px;
+      margin-top: 8px;
+      min-height: 18px;
+      color: #ffdddd;
+    }
+
+    @media (max-width:420px) {
+      .container { padding: 20px; }
+    }
+    a{
+        color: white;
+        text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">🌍 EcolImpact</div>
-    <div class="description">
-      Join our mission to reduce air pollution. Your actions help build a cleaner, greener world.
+  <div class="page">
+    <div class="container" role="main" aria-labelledby="site-title">
+      <div class="logo" id="site-title">🌍 <strong>EcolImpact</strong></div>
+      <div class="description">
+        Join our mission to reduce air pollution. Your actions help build a cleaner, greener world.
+      </div>
+
+      <div class="actions" role="tablist" aria-label="Authentication options">
+        <button id="loginBtn" class="btn active" type="button" aria-controls="loginForm" aria-selected="true">Already a member</button>
+        <button id="registerBtn" class="btn secondary" type="button" aria-controls="registerForm" aria-selected="false">First time user</button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="loginForm" class="form-box visible" aria-hidden="false">
+        <form id="loginFormElement" novalidate>
+          <div class="form-row">
+            <label for="loginEmail">Email</label>
+            <input id="loginEmail" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="form-row">
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" name="password" type="password" autocomplete="current-password" required />
+          </div>
+          <div class="submit-row">
+            <!-- <button class="btn" type="submit">Login</button> -->
+             <button class="btn"><a href="home.html">Login</a></button>
+            <button class="btn secondary" id="loginCancel" type="button">Cancel</button>
+          </div>
+          <div id="loginMsg" class="msg" aria-live="polite"></div>
+        </form>
+      </div>
+
+      <!-- Register Form -->
+      <div id="registerForm" class="form-box" aria-hidden="true">
+        <form id="registerFormElement" novalidate>
+          <div class="form-row">
+            <label for="registerName">Name</label>
+            <input id="registerName" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="form-row">
+            <label for="registerEmail">Email</label>
+            <input id="registerEmail" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="form-row">
+            <label for="registerPassword">Password</label>
+            <input id="registerPassword" name="password" type="password" autocomplete="new-password" minlength="6" required />
+          </div>
+          <div class="submit-row">
+            <button class="btn" type="submit">Register</button>
+            <button class="btn secondary" id="registerCancel" type="button">Cancel</button>
+          </div>
+          <div id="registerMsg" class="msg" aria-live="polite"></div>
+        </form>
+      </div>
+
     </div>
-
-    <button class="btn" onclick="showLogin()">Already a Member</button>
-    <button class="btn" onclick="showRegister()">First Time User</button>
-
-    <!-- Login Form -->
-    <div id="loginForm" class="form-box">
-      <h3>Login</h3>
-      </div>
-      <form>
-      <input type="email" id="loginEmail" placeholder="Email" required><br>
-      <input type="password" id="loginPassword" placeholder="Password" required><br>
-      <button class="btn" onclick="submitLogin()">Login</button>
-      </form>
-    <!-- </div> -->
-
-    <!-- Register Form -->
-    <div id="registerForm" class="form-box">
-      <h3>Register</h3>
-      </div>
-      <input type="text" id="registerName" placeholder="Name" required><br>
-      <input type="email" id="registerEmail" placeholder="Email" required><br>
-      <input type="password" id="registerPassword" placeholder="Password" required><br>
-      <button class="btn" onclick="submitRegister()">Register</button>
-    <!-- </div> -->
   </div>
 
   <script>
+    // Cache DOM nodes
+    const loginBtn = document.getElementById('loginBtn');
+    const registerBtn = document.getElementById('registerBtn');
+    const loginFormBox = document.getElementById('loginForm');
+    const registerFormBox = document.getElementById('registerForm');
+    const loginFormElement = document.getElementById('loginFormElement');
+    const registerFormElement = document.getElementById('registerFormElement');
+    const loginMsg = document.getElementById('loginMsg');
+    const registerMsg = document.getElementById('registerMsg');
+    const loginCancel = document.getElementById('loginCancel');
+    const registerCancel = document.getElementById('registerCancel');
+
     function showLogin() {
-      document.getElementById("loginForm").classList.add("visible");
-      document.getElementById("registerForm").classList.remove("visible");
+      // Toggle visibility and ARIA attributes
+      loginFormBox.classList.add('visible');
+      loginFormBox.setAttribute('aria-hidden', 'false');
+      registerFormBox.classList.remove('visible');
+      registerFormBox.setAttribute('aria-hidden', 'true');
+
+      // Update tabs/buttons states
+      loginBtn.classList.add('active');
+      loginBtn.classList.remove('secondary');
+      loginBtn.setAttribute('aria-selected', 'true');
+
+      registerBtn.classList.remove('active');
+      registerBtn.classList.add('secondary');
+      registerBtn.setAttribute('aria-selected', 'false');
+
+      // Focus first input
+      const input = loginFormElement.querySelector('input');
+      if (input) input.focus();
+
+      // clear messages
+      registerMsg.textContent = '';
     }
 
     function showRegister() {
-      document.getElementById("registerForm").classList.add("visible");
-      document.getElementById("loginForm").classList.remove("visible");
+      registerFormBox.classList.add('visible');
+      registerFormBox.setAttribute('aria-hidden', 'false');
+      loginFormBox.classList.remove('visible');
+      loginFormBox.setAttribute('aria-hidden', 'true');
+
+      registerBtn.classList.add('active');
+      registerBtn.classList.remove('secondary');
+      registerBtn.setAttribute('aria-selected', 'true');
+
+      loginBtn.classList.remove('active');
+      loginBtn.classList.add('secondary');
+      loginBtn.setAttribute('aria-selected', 'false');
+
+      const input = registerFormElement.querySelector('input');
+      if (input) input.focus();
+
+      loginMsg.textContent = '';
     }
 
-    function submitLogin() {
-      const email = document.getElementById("loginEmail").value;
-      const password = document.getElementById("loginPassword").value;
+    // Attach events to the tab buttons
+    loginBtn.addEventListener('click', showLogin);
+    registerBtn.addEventListener('click', showRegister);
+    loginCancel.addEventListener('click', () => { loginFormElement.reset(); loginMsg.textContent = ''; });
+    registerCancel.addEventListener('click', () => { registerFormElement.reset(); registerMsg.textContent = ''; });
 
-      fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.message === "Login successful") {
-          alert("Login successful!");
-          window.location.href = "home.html";
+    // Helper to show temporary messages
+    function showMessage(el, text, isError = true) {
+      el.style.color = isError ? '#ffdddd' : '#ccffdd';
+      el.textContent = text;
+    }
+
+    // Async login handler
+    loginFormElement.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginMsg.textContent = '';
+
+      const email = loginFormElement.email.value.trim();
+      const password = loginFormElement.password.value;
+
+      if (!email || !password) {
+        showMessage(loginMsg, 'Please fill both email and password.');
+        return;
+      }
+
+      try {
+        showMessage(loginMsg, 'Logging in...', false);
+        const res = await fetch('http://localhost:3000/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        // try parse JSON safely
+        const data = await res.json().catch(() => ({ message: 'Unexpected server response' }));
+
+        if (res.ok && data.message === 'Login successful') {
+          showMessage(loginMsg, 'Login successful — redirecting...', false);
+          // small delay for message to be visible, then redirect
+          setTimeout(() => { window.location.href = 'home.html'; }, 700);
         } else {
-          alert("Invalid email or password.");
+          showMessage(loginMsg, data.message || 'Invalid email or password.');
         }
-      })
-      .catch(err => alert("Error: " + err));
-    }
+      } catch (err) {
+        showMessage(loginMsg, 'Network error: ' + err.message);
+      }
+    });
 
-    function submitRegister() {
-      const name = document.getElementById("registerName").value;
-      const email = document.getElementById("registerEmail").value;
-      const password = document.getElementById("registerPassword").value;
+    // Async register handler
+    registerFormElement.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      registerMsg.textContent = '';
 
-      fetch("http://localhost:3000/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ name, email, password })
-      })
-      .then(res => res.json())
-      .then(data => {
-        alert(data.message);
-        if (data.message === "Registration successful") {
-          window.location.href = "home.html";
+      const name = registerFormElement.name.value.trim();
+      const email = registerFormElement.email.value.trim();
+      const password = registerFormElement.password.value;
+
+      if (!name || !email || !password) {
+        showMessage(registerMsg, 'Please complete all fields.');
+        return;
+      }
+
+      if (password.length < 6) {
+        showMessage(registerMsg, 'Password must be at least 6 characters.');
+        return;
+      }
+
+      try {
+        showMessage(registerMsg, 'Registering...', false);
+        const res = await fetch('http://localhost:3000/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await res.json().catch(() => ({ message: 'Unexpected server response' }));
+
+        if (res.ok && data.message === 'Registration successful') {
+          showMessage(registerMsg, 'Registration successful — redirecting...', false);
+          setTimeout(() => { window.location.href = 'home.html'; }, 700);
+        } else {
+          showMessage(registerMsg, data.message || 'Registration failed.');
         }
-      })
-      .catch(err => alert("Error: " + err));
-    }
+      } catch (err) {
+        showMessage(registerMsg, 'Network error: ' + err.message);
+      }
+    });
+
+    // Initialize UI state (login visible by default)
+    (function init() {
+      showLogin();
+    })();
   </script>
 </body>
 </html>
-
